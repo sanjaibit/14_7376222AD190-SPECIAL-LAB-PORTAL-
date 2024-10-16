@@ -1,0 +1,62 @@
+<div class="container mx-auto p-10">
+    <!-- Profile Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-4">Student Profile</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="font-semibold"><strong>Name:</strong> {{student.name}}</p>
+          <p><strong>ID:</strong> {{student.id}}</p>
+        </div>
+        <div>
+          <p><strong>Class:</strong> {{student.class}}</p>
+          <p><strong>Section:</strong> {{student.section}}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Attendance Chart -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-4">Attendance</h2>
+      <div class="flex items-center justify-center">
+        <div class="relative">
+          <svg class="w-32 h-32">
+            <circle class="text-gray-300" stroke-width="8" stroke="currentColor" fill="transparent" r="48" cx="64" cy="64"/>
+            <circle 
+              class="text-blue-600" 
+              stroke-width="8" 
+              [attr.stroke-dasharray]="(student.attendancePercentage * 3.14) + ' 314'" 
+              stroke-linecap="round" 
+              stroke="currentColor" 
+              fill="transparent" 
+              r="48" cx="64" cy="64"
+            />
+          </svg>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-xl font-bold">{{student.attendancePercentage}}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Task Table -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-bold mb-4">Tasks</h2>
+      <table class="min-w-full table-auto text-left">
+        <thead>
+          <tr class="border-b">
+            <th class="px-4 py-2 font-semibold">Task</th>
+            <th class="px-4 py-2 font-semibold">Status</th>
+            <th class="px-4 py-2 font-semibold">Due Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasks" class="border-b">
+            <td class="px-4 py-2">{{ task.task }}</td>
+            <td class="px-4 py-2">{{ task.status }}</td>
+            <td class="px-4 py-2">{{ task.dueDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

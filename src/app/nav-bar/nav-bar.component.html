@@ -1,0 +1,96 @@
+<!-- Top Section (Horizontal Search Bar and Logout Button) -->
+<div class="flex justify-between items-center h-14 p-4 bg-secondary fixed w-full z-50 top-0">
+  <div class="flex text-center px-4 pt-4">
+    <h3 class="text-lblue">Special Lab Portal</h3> 
+  </div>
+  <!-- Search Bar -->
+  <div class="flex items-center bg-white rounded-full px-4 py-2 transition-all duration-700 ease-in-out w-full max-w-md">
+    <span class="material-icons text-black">search</span>
+    <input type="text" placeholder="Search..." class="bg-transparent text-white ml-2 focus:outline-none w-full">
+  </div>
+  <!-- Profile Section -->
+  <div class="flex items-center">
+    <img src="https://via.placeholder.com/50" alt="Profile" class="rounded-full mr-8 w-9 h-9" />
+    <!-- Toggle Button (Arrow Icon) -->
+    <button (click)="toggleNavBar()" class="flex text-white focus:outline-none">
+      <span class="material-icons text-black md-40">menu</span>
+    </button>
+  </div>
+</div>
+
+<div class="flex">
+  <!-- Vertical Navigation Bar -->
+  <nav [ngClass]="{'w-66': !isCollapsed, 'w-20': isCollapsed}"
+    class="bg-secondary h-screen fixed top-12 p-4 items-center transition-all duration-400 ease-in-out z-40 flex flex-col justify-between">
+    <!-- Navigation Links -->
+    <ul class="space-y-4">
+      <li class="relative dropdown-trigger">
+        <a [ngClass]="{'bg-darkblue text-white': currentPage === 'Special_lab'}"
+          (click)="[toggleDropdown(), setCurrentPage('Special_lab')]"
+          class="flex items-center justify-between text-black py-2 px-4 rounded hover:bg-darkblue group cursor-pointer">
+          <div class="flex items-center">
+            <span class="material-icons group-hover:text-white">biotech</span>
+            <span *ngIf="!isCollapsed" class="ml-4 group-hover:text-white">Special Lab List</span>
+          </div>
+          <span class="material-icons group-hover:text-white" *ngIf="!isCollapsed">
+            {{ dropdownOpen ? 'expand_less' : 'expand_more' }}
+          </span>
+        </a>
+
+        <!-- Dropdown Menu -->
+        <ul *ngIf="dropdownOpen && isCollapsed; else elseblock"
+          class="bg-gray-700 mt-2 space-y-1 absolute left-20 w-48 rounded shadow-lg z-40 dropdown-menu"
+          [ngClass]="{'block': isCollapsed, 'ml-2': !isCollapsed}">
+          <li><a href="#" class="block text-white py-2 px-4 rounded hover:bg-gray-600">Web Development</a></li>
+          <li><a href="#" class="block text-white py-2 px-4 rounded hover:bg-gray-600">Mobile Development</a></li>
+          <li><a href="#" class="block text-white py-2 px-4 rounded hover:bg-gray-600">UI/UX Design</a></li>
+        </ul>
+        <ng-template #elseblock>
+          <ul *ngIf="dropdownOpen" class="bg-secondary text-black mt-2 space-y-2 ml-1" >
+            <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-600 hover:text-white">Web Development</a></li>
+            <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-600 hover:text-white">Mobile Development</a></li>
+            <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-600 hover:text-white">UI/UX Design</a></li>
+          </ul>
+        </ng-template>
+      </li>
+      <li>
+        <a href="/enroll" [ngClass]="{'bg-gray-900': currentPage === 'enroll'}"
+          class="flex items-center text-black py-2 px-4 rounded hover:bg-darkblue group" (click)="setCurrentPage('enroll')">
+          <span class="material-icons group-hover:text-white">description</span>
+          <span *ngIf="!isCollapsed" class="ml-4 group-hover:text-white">Enrollment Form</span>
+        </a>
+      </li>
+      <li>
+        <a href="/transfer" [ngClass]="{'bg-gray-900': currentPage === 'transfer_form'}"
+          class="flex items-center text-black py-2 px-4 rounded hover:bg-darkblue group" (click)="setCurrentPage('transfer_form')">
+          <span class="material-icons group-hover:text-white">move_up</span>
+          <span *ngIf="!isCollapsed" class="ml-4 group-hover:text-white">Transfer Request Form</span>
+        </a>
+      </li>
+      <li>
+        <a href="/special_transfer" [ngClass]="{'bg-gray-900': currentPage === 'Special_request'}"
+          class="flex items-center text-black py-2 px-4 rounded hover:bg-darkblue group" (click)="setCurrentPage('Special_request')">
+          <span class="material-icons group-hover:text-white">add_task</span>
+          <span *ngIf="!isCollapsed" class="ml-4 group-hover:text-white">Special Request Form</span>
+        </a>
+      </li>
+      <li>
+        <a href="/profile" class="flex items-center text-black py-2 px-4 rounded hover:bg-darkblue group">
+          <span class="material-icons group-hover:text-white">contact_mail</span>
+          <span *ngIf="!isCollapsed" class="ml-4 group-hover:text-white">Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center text-black py-2 px-4 rounded hover:bg-darkblue group">
+          <span class="material-icons group-hover:text-white">logout</span>
+          <span *ngIf="!isCollapsed" class="ml-4 group-hover:text-white">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <div [ngClass]="{'ml-20': isCollapsed}" class="flex-grow bg-gray-50 ml-64 mt-12 transition-all duration-30 ease-in-out"> 
+    <router-outlet></router-outlet>
+  </div>
+</div>
